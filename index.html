@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <style>
+        .todo {
+            position: absolute;
+            width: 600px;
+            height: 700px;
+            margin: auto;
+            inset: 0;
+            background-color: lightcyan;
+            border: 1px solid cyan;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        
+        .todoHeading h1 {
+            text-transform: uppercase;
+            font-size: 42px;
+        }
+        
+        .todoHeading p {
+            text-transform: capitalize;
+            word-spacing: 0px;
+        }
+        
+        .todoHeading p:nth-child(2) {
+            color: red;
+        }
+        
+        .todoHeading p:nth-child(3) {
+            color: green;
+        }
+        
+        .todoHeading p:nth-child(4) {
+            color: blue;
+        }
+        
+        .todoField {
+            margin: 50px 0px 0px;
+            overflow: hidden;
+        }
+        
+        .todoField input {
+            width: 300px;
+            border: 1px solid darkcyan;
+            padding: 6px 6px;
+            font-size: 16px;
+            text-transform: capitalize;
+            background-color: #edfbfb;
+        }
+        
+        .todoField button {
+            width: 50px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 1px solid darkcyan;
+            background-color: #edfbfb;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            height: 32px;
+        }
+        
+        .todoField button:hover {
+            background-color: #3d6c6c;
+            color: white;
+        }
+        
+        ul#unOrderList {
+            padding: 15px 0px;
+            width: 370px;
+            margin: auto;
+            height: 345px;
+            overflow: hidden auto;
+            list-style-type: unset;
+            text-align: left;
+        }
+        
+        ul#unOrderList li {
+            padding: 7px 10px;
+            margin: 10px 0px;
+            background-color: #edfbfb;
+            border: 1px solid darkcyan;
+            text-transform: capitalize;
+        }
+        
+        ul#unOrderList li:focus {
+            text-decoration: line-through;
+        }
+        
+        ul#unOrderList li a {
+            display: inline-block;
+            float: right;
+            text-decoration: unset;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todo">
+        <div class="todoHeading">
+            <h1>work TO-DOS</h1>
+            <p>enter text into the input field to add items to your list.</p>
+            <p>click the item to mark it as complete.</p>
+            <p>click the "X" to remove the item from your list.</p>
+        </div>
+        <div class="todoField">
+            <input type="text" id="todoEnter" placeholder="New item...">
+            <button onclick="todo()">add</button>
+        </div>
+        <ul class="todoList" id="unOrderList">
+
+        </ul>
+    </div>
+    <script>
+        function todo() {
+            var itemAdd = document.getElementById("todoEnter").value;
+            var valueCheck = itemAdd.trim();
+            if (valueCheck != '') {
+                var ul = document.getElementById("unOrderList");
+                var li = document.createElement("li")
+                var delete_item = document.createElement("a");
+                li.innerText = itemAdd;
+                li.appendChild(delete_item)
+                li.setAttribute('onclick', "item_done(this)");
+                ul.appendChild(li)
+                delete_item.href = "#"
+                delete_item.className = "Btn";
+                delete_item.id = "btn_cancel"
+                delete_item.innerText = "X"
+                delete_item.setAttribute('onclick', 'item_remove(this)');
+
+            } else {
+                alert("add your new todo")
+            }
+            document.getElementById("todoEnter").value = "";
+        }
+
+        function item_done(this_item) {
+            if (this_item.style.textDecoration == "line-through") {
+                this_item.style.textDecoration = "unset";
+            } else {
+                this_item.style.textDecoration = "line-through";
+            }
+        }
+
+        function item_remove(btnRemove) {
+            btnRemove.parentNode.remove();
+        }
+    </script>
+    <script src="js/logic.js"></script>
+</body>
+
+</html>
